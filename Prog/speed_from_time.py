@@ -1,21 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import json 
 
-data1 = [i for i in range(0, 355, 10)]
-data2 = [0, 92.8, 187.1, 287.6, 363.2, 453.2, 636.7, 879.2, 923.6, 1128.8, 1190.9, 1134, 1086.4, 1044,
-         1003.6, 968.1, 934.2, 908.3, 912, 1063.8, 1228, 1421.5, 1523.7, 1725.1,
-         1931.5, 2163.2, 2263.4, 2263.9, 2264.3, 2264.6, 2264.9, 2265.2, 2265.4, 2265.8, 2266.2, 2266.7,
-         ]
+with open("data.json") as file_in:
+    data = json.load(file_in)
 
-print(len(data2))
-x = np.linspace(0, 340) # время
-fig, ax = plt.subplots()
 
-ax.plot(data1, data2)
-ax.grid()
+#Построение графика
+fig_speed, ax_speed = plt.subplots()
 
-ax.set_xlabel('время (с)')
-ax.set_ylabel('скорость (м/c)')
+ax_speed.plot(data['met'], data['speed'])
 
+ax_speed.set_title('Зависимость скорости от времени')
+
+ax_speed.set_xlabel('Время, c')
+ax_speed.set_ylabel('Скорость, м/c')
 
 plt.show()
