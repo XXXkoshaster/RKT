@@ -1,31 +1,31 @@
 import numpy as np
-import math
 import matplotlib.pyplot as plt
+import json 
+import math
+
+with open("data.json") as file_in:
+    data = json.load(file_in)
 
 #Константы
 S = 25 * math.pi # Характерная площадь, м**2
 R = 1.2 # Плотность среды, кг/м**3
 K = 0.5 # Безразмерный коэффициент C для конуса 
 
-#Значения скорости
-data_1 = [0, 92.8, 187.1, 287.6, 363.2, 453.2, 636.7, 879.2, 923.6, 1128.8, 1190.9, 1134, 1086.4, 1044,
-         1003.6, 968.1, 934.2, 908.3, 912, 1063.8, 1228, 1421.5, 1523.7, 1725.1,
-         1931.5, 2163.2, 2263.4, 2263.9, 2264.3, 2264.6, 2264.9, 2265.2, 2265.4, 2265.8, 2266.2, 2266.7]
-
 #Лобовое сопротивление
-data_2 = []
+frontal_resistance = []
 
-for i in data_1:
-    data_2.append(K * S * (R * i**2) / 2) #Подсчет лобового сопротивления
-
+for i in data['speed']:
+    frontal_resistance.append(K * S * (R * i**2) / 2) 
+    print(K * S * (R * i**2) / 2)
 #Построение графика
 fig, ax = plt.subplots()
 
-ax.plot(data_1, data_2 )
-ax.grid()
+ax.plot(data['speed'], frontal_resistance)
+
+ax.set_title('Сила лобового сопротивления от скорости ракеты')
 
 ax.set_xlabel('Скорость ракеты, м/с')
-ax.set_ylabel('Сила лобового сопротивления, Н')
+ax.set_ylabel('Сила лобового сопротивления, Н * 10^8')
 
 
 plt.show()
